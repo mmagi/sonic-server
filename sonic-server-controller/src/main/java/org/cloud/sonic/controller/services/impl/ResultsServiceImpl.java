@@ -337,7 +337,7 @@ public class ResultsServiceImpl extends SonicServiceImpl<ResultsMapper, Results>
                 results.setEndTime(new Date());
                 save(results);
                 Projects projects = projectsService.findById(results.getProjectId());
-                if (projects != null && projects.getRobotType() != 0 && projects.getRobotToken().length() > 0) {
+                if ( (warnCount>0 || failCount>0) && projects != null && projects.getRobotType() != 0 && projects.getRobotToken().length() > 0) {
                     robotMsgTool.sendResultFinishReport(projects.getRobotToken(), projects.getRobotSecret(),
                             results.getSuiteName(), sucCount, warnCount, failCount, projects.getId(), results.getId(), projects.getRobotType());
                 }
