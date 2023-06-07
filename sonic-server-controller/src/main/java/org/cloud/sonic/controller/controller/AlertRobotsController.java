@@ -93,7 +93,7 @@ public class AlertRobotsController {
             @Parameter(name = "projectId", description = "项目id") int projectId,
             @RequestParam(name = "id") int id
     ) {
-        if (alertRobotsService.removeByMap(Map.of("id", id, "projectId", projectId))) {
+        if (alertRobotsService.remove(alertRobotsService.lambdaQuery().eq(AlertRobots::getId, id).eq(AlertRobots::getProjectId, projectId))) {
             return new RespModel<>(RespEnum.DELETE_OK);
         } else {
             return new RespModel<>(RespEnum.DELETE_FAIL);
