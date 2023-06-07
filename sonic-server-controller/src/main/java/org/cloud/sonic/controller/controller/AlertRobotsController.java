@@ -35,7 +35,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Tag(name = "告警通知机器人相关")
 @RestController
@@ -93,7 +92,7 @@ public class AlertRobotsController {
             @Parameter(name = "projectId", description = "项目id") int projectId,
             @RequestParam(name = "id") int id
     ) {
-        if (alertRobotsService.removeByMap(Map.of("id", id, "projectId", projectId))) {
+        if (alertRobotsService.remove(alertRobotsService.lambdaQuery().eq(AlertRobots::getId, id).eq(AlertRobots::getProjectId, projectId))) {
             return new RespModel<>(RespEnum.DELETE_OK);
         } else {
             return new RespModel<>(RespEnum.DELETE_FAIL);
